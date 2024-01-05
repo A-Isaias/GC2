@@ -1,5 +1,7 @@
 const express = require ('express')
 const router = express.Router()
+const isAuthenticated = require('../controllers/authController').isAuthenticated;
+const editUserController = require('../controllers/editUserController');
 
 const authController = require('../controllers/authController')
 
@@ -13,7 +15,11 @@ router.get ('/login', (req, res)=>{
 router.get ('/register', (req, res)=>{
     res.render('register')
 })
+// Ruta para la vista de edición del perfil (debe estar autenticado)
+router.get('/edit-profile', isAuthenticated, editUserController.editProfileView);
 
+// Ruta para manejar la actualización del perfil (debe estar autenticado)
+router.post('/update-profile', isAuthenticated, editUserController.updateProfile);
 
 //Router para metodos del controller
 router.post('/register', authController.register)
