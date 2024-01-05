@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Game City Comic Store LOGIN</title>
+
+    
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- 
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style> -->
+
+    
+    <!-- Custom styles for this template -->
+    <link href="css/signin.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+<main class="form-signin text-center shadow-lg p-3 mb-5">
+  <form id="formLogin" action="/login" method="POST">
+    <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">  cambiar por logo propio-->
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+      <label for="email">Email</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+      <label for="Pass">Password</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
+  </form>
+  <a href="/register" type="button" class="w-100 btn btn-lg btn-primary">Registrarse</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(alert) { %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>',
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmButton: '<%= showConfirmButton %>',
+                timer: '<%= timer %>'
+            }).then(()=>{
+                window.location = "/<%= ruta %>"
+            })
+        </script>
+    <% } %>   
+
+  </body>
+</html>
