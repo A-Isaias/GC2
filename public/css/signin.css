@@ -38,3 +38,21 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.novedades-message {
+    font-size: 18px;
+    margin-top: 10px;
+    /* Puedes cambiar el color según tus preferencias */
+    color: #333;
+  }
+
+  /* Cambia el siguiente estilo según la fuente que quieras probar */
+  .custom-font {
+    /* font-family: Arial, sans-serif;  */
+    /* font-family: Calibri, sans-serif; */
+     font-family: Verdana, sans-serif; 
+    /*font-family: Tahoma, sans-serif; */
+  }
+  .img-thumbnail {
+    max-width: 150px;
+  }

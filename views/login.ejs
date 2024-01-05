@@ -9,7 +9,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="css/signin.css" rel="stylesheet">
-  <link href="css/styles.css" rel="stylesheet">
+  
 </head>
 <body class="text-center">
 
@@ -19,8 +19,8 @@
       <div class="col-md-6">
         <main class="form-signin text-center shadow-lg p-3 mb-5">
           <form id="formLogin" action="/login" method="POST">
-            <img class="mb-4" src="img/305454525_500236702106121_2115306775009528623_n.jpg/" alt="Game City Comic Store Logo" width="72" height="72">
-            <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            <img class="mb-4" src="img/GCCS LOGO TRUCHO.png" alt="Game City Comic Store Logo" width="150" height="150">
+            <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
             <div class="form-floating">
               <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
               <label for="email">Email</label>
@@ -29,11 +29,11 @@
               <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
               <label for="Pass">Password</label>
             </div>
-            <div class="checkbox mb-3">
+            <!-- <div class="checkbox mb-3">
               <label>
                 <input type="checkbox" value="remember-me"> Remember me
               </label>
-            </div>
+            </div> -->
             <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
           </form>
           <div class="mb-2"></div>
@@ -41,17 +41,56 @@
         </main>
       </div>
 
-      <!-- Columna de Imagen y Título -->
-      <div class="col-md-6">
-        <div class="text-center">
-          <img src="img/Game-city-logo-webretina.jpg" alt="Game City Comics Store" class="img-fluid">
-          <h2 class="h3 mb-3">GAME CITY COMICS STORE</h2>
-          <p>REGISTRATE PARA VER LAS NOVEDADES</p>
-        </div>
+<!-- Columna de Imagen y Título -->
+<div class="col-md-6">
+  <div class="text-center">
+    <div class="custom-font novedades-message">REGISTRATE PARA VER LAS NOVEDADES</div>
+    <!-- <img src="img/Game-city-logo-webretina.jpg" alt="Game City Comics Store" class="img-fluid">
+     -->
+    <!-- Carátulas de cómics -->
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <!-- Carátula 1 -->
+        <img src="/img/novedades/imagen03.jpg" alt="Cómic 1" class="img-thumbnail">
+      </div>
+      <div class="col-md-3">
+        <!-- Carátula 2 -->
+        <img src="/img/novedades/imagen05.jpg" alt="Cómic 2" class="img-thumbnail">
+      </div>
+      <div class="col-md-3">
+        <!-- Carátula 3 -->
+        <img src="/img/novedades/imagen07.jpg" alt="Cómic 3" class="img-thumbnail">
+      </div>
+      <div class="col-md-3">
+        <!-- Carátula 4 -->
+        <img src="/img/novedades/imagen09.jpg" alt="Cómic 4" class="img-thumbnail">
       </div>
     </div>
-  </div>
 
+    <!-- Otra fila de carátulas -->
+    <div class="row mb-2">
+      <div class="col-md-3">
+        <!-- Carátula 5 -->
+        <img src="/img/novedades/imagen11.jpg" alt="Cómic 5" class="img-thumbnail">
+      </div>
+      <div class="col-md-3">
+        <!-- Carátula 6 -->
+        <img src="/img/novedades/imagen13.jpg" alt="Cómic 6" class="img-thumbnail">
+      </div>
+      <div class="col-md-3">
+        <!-- Carátula 7 -->
+        <img src="/img/novedades/imagen15.jpg" alt="Cómic 7" class="img-thumbnail">
+      </div>
+      <div class="col-md-3">
+        <!-- Carátula 8 -->
+        <img src="/img/novedades/imagen17.jpg" alt="Cómic 8" class="img-thumbnail">
+      </div>
+    </div>
+
+    <!-- Puedes seguir agregando más filas según sea necesario -->
+  </div>
+</div>
+<p>REGISTRATE PARA VER LAS NOVEDADES</p>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <% if(alert) { %>
     <script>
