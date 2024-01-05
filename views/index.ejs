@@ -55,9 +55,11 @@
           </div>
           <div class="text-right">
             <a type="button" class="px-3 btn btn-primary mb-2" href="logout">Boton 1</a>
-            <a type="button" class="px-3 btn btn-secondary mb-2" href="logout">Boton 2</a>
-            <a type="button" class="px-3 btn btn-info mb-2" href="/edit-profile">Edit Profile</a>
+            <a type="button" class="px-3 btn btn-secondary mb-2" href="/edit-profile">Mi Perfil</a>
             <a type="button" class="px-3 btn btn-danger mb-2" href="logout">Logout</a>
+            <% if (user && user.tipo === 'admin') { %>
+              <a id="adminButton" type="button" class="px-3 btn btn-warning" href="/admin">ADMIN</a>
+            <% } %>
             
           </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
@@ -580,7 +582,15 @@
 
 
     <script src="/js/bootstrap.bundle.min.js"></script>
-
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var adminButton = document.getElementById('adminButton');
+        if (adminButton) {
+          // Ocultar el botón si el usuario no es un administrador
+          adminButton.style.display = '<%= user && user.tipo !== "admin" ? "none" : "block" %>';
+        }
+      });
+    </script>
       
   </body>
 </html>

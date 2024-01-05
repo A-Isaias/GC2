@@ -1,4 +1,5 @@
 const connection = require('../database/db');
+const bcryptjs = require ('bcryptjs')
 
 // Vista para editar el perfil
 exports.editProfileView = (req, res) => {
@@ -29,7 +30,7 @@ exports.updateProfile = async (req, res) => {
             );
         }
 
-        res.redirect('/profile'); // Puedes redirigir a la página del perfil actualizado
+        res.redirect('/'); // Puedes redirigir a la página del perfil actualizado
     } catch (error) {
         console.log(error);
         res.status(500).send('Error interno del servidor');

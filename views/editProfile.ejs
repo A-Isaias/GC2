@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,119 +12,134 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <h2 class="text-center mb-4">Edit Profile</h2>
-                <form action="/update-profile" method="POST">
+                <form action="/update-profile" method="POST" onsubmit="return validarFormulario()">
                     <!-- Campos de edición -->
-<div class="form-group">
-    <label for="nombre">Nombre</label>
-    <input
-        type="text"
-        class="form-control"
-        id="nombre"
-        name="nombre"
-        value="<%= user.nombre %>"
-        required
-    />
-</div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="<%= user.nombre %>"
+                            required />
+                    </div>
 
-<div class="form-group">
-    <label for="apellido">Apellido</label>
-    <input
-        type="text"
-        class="form-control"
-        id="apellido"
-        name="apellido"
-        value="<%= user.apellido %>"
-        required
-    />
-</div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido"
+                            value="<%= user.apellido %>" required />
+                    </div>
 
-<div class="form-group">
-    <label for="fechaNacimiento">Fecha de Nacimiento</label>
-    <input
-        type="date"
-        class="form-control"
-        id="fechaNacimiento"
-        name="fechaNacimiento"
-        value="<%= user.fecha_nac %>"
-        required
-    />
-</div>
-<div class="form-group">
-    <label for="password">Nueva Contraseña</label>
-    <div class="input-group">
-        <input type="password" class="form-control" id="password" name="password" placeholder="Deja en blanco para no cambiar">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary reveal-password" type="button">
-                <i class="fas fa-eye-slash" aria-hidden="true"></i>
-            </button>
-        </div>
-    </div>
-</div>
+                    <div class="form-group">
+                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <input
+                            type="date"
+                            class="form-control"
+                            id="fechaNacimiento"
+                            name="fechaNacimiento"
+                            value="<%= user.fecha_nac ? user.fecha_nac.toISOString().split('T')[0] : '' %>"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Nueva Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Deja en blanco para no cambiar">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary reveal-password" type="button" onclick="mostrarContrasena('password')">
+                                    <i class="fas fa-eye-slash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmar Nueva Contraseña</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Deja en blanco para no cambiar">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary reveal-password" type="button" onclick="mostrarContrasena('confirmPassword')">
+                                    <i class="fas fa-eye-slash" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                
+                    
+                    <div class="form-group">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" class="form-control" id="telefono" name="telefono"
+                            value="<%= user.telefono %>" required />
+                    </div>
 
-<div class="form-group">
-    <label for="confirmPassword">Confirmar Nueva Contraseña</label>
-    <div class="input-group">
-        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Deja en blanco para no cambiar">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary reveal-password" type="button">
-                <i class="fas fa-eye-slash" aria-hidden="true"></i>
-            </button>
-        </div>
-    </div>
-</div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" name="direccion"
+                            value="<%= user.direccion %>" required />
+                    </div>
 
-<div class="form-group">
-    <label for="telefono">Teléfono</label>
-    <input
-        type="tel"
-        class="form-control"
-        id="telefono"
-        name="telefono"
-        value="<%= user.telefono %>"
-        required
-    />
-</div>
+                    <div class="form-group">
+                        <label for="ciudad">Ciudad</label>
+                        <input type="text" class="form-control" id="ciudad" name="ciudad" value="<%= user.ciudad %>"
+                            required />
+                    </div>
 
-<div class="form-group">
-    <label for="direccion">Dirección</label>
-    <input
-        type="text"
-        class="form-control"
-        id="direccion"
-        name="direccion"
-        value="<%= user.direccion %>"
-        required
-    />
-</div>
-
-<div class="form-group">
-    <label for="ciudad">Ciudad</label>
-    <input
-        type="text"
-        class="form-control"
-        id="ciudad"
-        name="ciudad"
-        value="<%= user.ciudad %>"
-        required
-    />
-</div>
-
-                    <button type="submit" class="btn btn-primary btn-block">
-                        Save Changes
-                    </button>
-                    <a href="/profile" type="button" class="btn btn-secondary btn-block">Cancel</a>
+                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                    <a href="/" type="button" class="btn btn-secondary btn-block">Cancel</a>
                 </form>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JS -->
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="js/bootstrap.bundle.min.js"></script> -->
+    <script>
+    // Función para validar el formulario antes de enviar
+    function validarFormulario() {
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert('Las contraseñas no coinciden. Por favor, verifíquelas.');
+            return false; // Evitar el envío del formulario
+        }
+
+        return true; // Continuar con el envío del formulario
+    }
+    </script>
+    <script>
+        // Función para mostrar/ocultar la contraseña
+        function mostrarContrasena(inputId) {
+            var input = document.getElementById(inputId);
+            var icon = document.querySelector(`#${inputId} + .input-group-append button i`);
+    
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            }
+        }
+    
+        // Función para validar el formulario antes de enviar
+        function validarFormulario() {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+    
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden. Por favor, verifíquelas.');
+                return false; // Evitar el envío del formulario
+            }
+    
+            return true; // Continuar con el envío del formulario
+        }
+    </script>
 </body>
+
 </html>

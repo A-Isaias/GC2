@@ -21,6 +21,11 @@ router.get('/edit-profile', isAuthenticated, editUserController.editProfileView)
 // Ruta para manejar la actualización del perfil (debe estar autenticado)
 router.post('/update-profile', isAuthenticated, editUserController.updateProfile);
 
+// Ruta para la vista de administrador
+router.get('/admin', authController.isAuthenticated, (req, res) => {
+    res.render('admin'); // Ajusta esto según cómo manejas tus vistas
+  });
+
 //Router para metodos del controller
 router.post('/register', authController.register)
 router.post('/login', authController.login)
