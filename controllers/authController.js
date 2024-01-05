@@ -31,7 +31,7 @@ exports.login = async (req,res)=> {
                 alertMessage: "Debe ingresar email y password",
                 alertIcon: 'info',
                 showConfirmButton: true,
-                timer: 2000,
+                timer: 3000,
                 ruta: 'login'
             })
         }else{
@@ -43,7 +43,7 @@ exports.login = async (req,res)=> {
                         alertMessage: "Usuario o Password erroneos",
                         alertIcon: 'info',
                         showConfirmButton: true,
-                        timer: 2000,
+                        timer: 3000,
                         ruta: 'login'
                     })
                 }else{
@@ -64,7 +64,7 @@ exports.login = async (req,res)=> {
                         alertMessage: "Usuario Logueado Correctamente",
                         alertIcon: 'success',
                         showConfirmButton: false,
-                        timer: 800,
+                        timer: 2000,
                         ruta: ''
                     })
                 }    

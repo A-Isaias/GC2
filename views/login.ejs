@@ -9,6 +9,8 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="css/signin.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
   
 </head>
 <body class="text-center">
@@ -26,8 +28,15 @@
               <label for="email">Email</label>
             </div>
             <div class="form-floating">
-              <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
-              <label for="Pass">Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary reveal-password" type="button" onclick="mostrarContrasena()">
+                        <i class="fas fa-eye-slash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+              
             </div>
             <!-- <div class="checkbox mb-3">
               <label>
@@ -90,7 +99,12 @@
     <!-- Puedes seguir agregando más filas según sea necesario -->
   </div>
 </div>
-<p>REGISTRATE PARA VER LAS NOVEDADES</p>
+<!-- Footer -->
+<footer class="footer mt-auto py-3">
+  <div class="container">
+      <span class="text-muted">&copy; 2024 Game City Comic Store, Design by A.R.I.</span>
+  </div>
+</footer>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <% if(alert) { %>
     <script>
@@ -106,5 +120,22 @@
     </script>
   <% } %>
 
+  <script>
+    // Función para mostrar/ocultar la contraseña en el formulario de inicio de sesión
+    function mostrarContrasena() {
+        var passwordInput = document.getElementById('pass');
+        var icon = document.querySelector('#pass + .input-group-append button i');
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        }
+    }
+</script>
 </body>
 </html>
