@@ -1,0 +1,42 @@
+/* Estilos generales para el título */
+header h1 {
+    font-size: 2em; /* Tamaño de fuente normal */
+    text-align: center; /* Centrar el texto */
+}
+
+/* Estilos para el texto "Bienvenido" y el nombre del usuario */
+header h2 {
+    font-size: 1.2em; /* Tamaño de fuente normal */
+}
+
+.comic-cover {
+    max-width: 100%; /* Esto ajustará el ancho máximo al 100% del contenedor padre */
+    height: auto; /* Esto mantendrá la proporción de aspecto original */
+  }
+
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+
+/* Media query para pantallas más pequeñas, como 1366x768 */
+@media screen and (max-width: 1366px) {
+    header h1 {
+        font-size: 1.5em; /* Tamaño de fuente más pequeño */
+        text-align: left; /* Alinear a la izquierda */
+    }
+
+    header h2 {
+        font-size: 1.5em; /* Tamaño de fuente más pequeño */
+    }
+}
