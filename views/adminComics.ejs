@@ -9,9 +9,10 @@
 </head>
 <body>
 
-<div class="container mt-5">
+<div class="container mt-1">
     <!-- Menú -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-info mb-3">
+        <nav class="navbar navbar-expand-lg bg-dark shadow-sm"> 
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-info mb-1"> -->
         <a class="navbar-brand btn btn-outline-secondary text-white" href="/">Menú Principal</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -27,30 +28,31 @@
             </ul>
         </div>
     </nav>
-<div class="container mt-5">
-    <!-- Formulario de búsqueda -->
-<form action="/admin-comics" method="post">
-    <!-- Otros campos de búsqueda -->
-    <div class="form-group">
-        <label for="criterio">Buscar por:</label>
-        <select class="form-control" id="criterio" name="criterio">
-            <option value="nombre" selected>Nombre</option>
-            <option value="numero">Número</option>
-            <option value="editorial">Editorial</option>
-            <option value="coleccion">Colección</option>
-            <option value="fecha_ingreso">Fecha de Ingreso</option>
-            <option value="observaciones">Observaciones</option>
-        </select>
+    <div class="container mt-1">
+        <!-- Formulario de búsqueda -->
+        <form action="/admin-comics" method="post" class="row">
+            <!-- Otros campos de búsqueda -->
+            <div class="form-group col-md-3">
+                <label for="criterio"><strong>Buscar por:</strong></label>
+                <select class="form-control" id="criterio" name="criterio">
+                    <option value="nombre" selected>Nombre</option>
+                    <option value="numero">Número</option>
+                    <option value="editorial">Editorial</option>
+                    <option value="coleccion">Colección</option>
+                    <option value="fecha_ingreso">Fecha de Ingreso</option>
+                    <option value="observaciones">Observaciones</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="keyword"><strong>Palabra clave:</strong></label>
+                <input type="text" class="form-control" id="keyword" name="valor" required>
+            </div>
+            <div class="form-group col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                <a href="/admin-comics" class="btn btn-secondary">Mostrar Todos</a>
+            </div>
+        </form>
     </div>
-    <div class="col-md-6">
-        <label for="keyword">Palabra clave:</label>
-        <input type="text" class="form-control" id="keyword" name="valor" required>
-    </div>
-    <div class="col-md-2">
-        <button type="submit" class="btn btn-primary">Buscar</button>
-        <a href="/admin-comics" class="btn btn-secondary">Mostrar Todos</a>
-    </div>
-</form>
 
     <!-- Tabla de comics -->
     <table class="table">
@@ -73,7 +75,7 @@
             <% comics.forEach(comic => { %>
                 <tr>
                     <td><%= comic.id %></td>
-                    <td><img src="/uploads/<%= comic.portada %>" alt="Portada del Cómic" style="max-width: 80px;"></td>
+                    <td><img src="/uploads/<%= comic.portada %>" alt="Portada del Cómic" style="max-width: 100px;"></td>
                     <td><%= comic.nombre %></td>
                     <td><%= comic.numero %></td>
                     <td><%= comic.editorial %></td>
