@@ -10,9 +10,9 @@ header h2 {
 }
 
 .comic-cover {
-    max-width: 100%; /* Esto ajustará el ancho máximo al 100% del contenedor padre */
-    height: auto; /* Esto mantendrá la proporción de aspecto original */
-  }
+  max-width: 100%; /* Esto hará que las imágenes sean responsivas y se ajusten al contenedor */
+  height: auto; /* Esto mantiene la proporción de aspecto original */
+}
 
   .bd-placeholder-img {
     font-size: 1.125rem;

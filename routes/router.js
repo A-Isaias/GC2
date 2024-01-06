@@ -4,14 +4,23 @@ const isAuthenticated = require('../controllers/authController').isAuthenticated
 const editUserController = require('../controllers/editUserController');
 const adminComicsController = require('../controllers/adminComicsController');
 const authController = require('../controllers/authController')
+const indexController = require('../controllers/indexController'); 
 
 // Importa la configuración de Multer desde app.js
 const {app, upload } = require('../app');
 
 //router para las vistas 
-router.get ('/', authController.isAuthenticated, (req, res)=>{
-    res.render('index', {user: req.user});
+// Ruta para la página principal
+router.get('/', isAuthenticated, async (req, res) => {
+    try {
+        const featuredComics = await indexController.getFeaturedComics(); // Asegúrate de tener esta función en tu controlador
+        res.render('index', { user: req.user, featuredComics });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error interno del servidor');
+    }
 });
+
 router.get ('/login', (req, res)=>{
     res.render('login', {alert:false})
 })
