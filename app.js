@@ -2,7 +2,24 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
 // const mysql = require('mysql');
+const multer = require('multer');
 const app = express();
+
+// Configuración de Multer
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Carpeta donde se almacenarán los archivos subidos
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+// Exporta la aplicación y la instancia de Multer
+module.exports = { app, upload };
+
 
 //Establecer motor de plantillas ejs:
 app.set('view engine', 'ejs');
@@ -29,6 +46,7 @@ app.use(function(req,res,next){
     res.header('Cache-Control','private, no-cache, no-store, must-revalidate');
     next();
 });
+
 
 port=3000
 app.listen(port,()=> {
