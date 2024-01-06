@@ -8,7 +8,7 @@ const app = express();
 // Configuración de Multer
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/'); // Carpeta donde se almacenarán los archivos subidos
+        cb(null, 'public/uploads/'); // Carpeta donde se almacenarán los archivos subidos
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname);

@@ -13,23 +13,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Función para agregar cómic a la base de datos
-exports.addComic = async (req, res) => {
-    try {
-        const { nombre, numero, editorial, coleccion, fecha_ingreso, novedad, costo, observaciones } = req.body;
-        const portada = req.file.filename; // Corregir esta línea para obtener el nombre del archivo correctamente
-        
-        // Ajusta la consulta SQL según tu esquema de base de datos
-        const query = 'INSERT INTO comics (nombre, numero, editorial, coleccion, fecha_ingreso, portada, novedad, costo, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        await queryComics(query, [nombre, numero, editorial, coleccion, fecha_ingreso, portada, novedad, costo, observaciones]);
-
-        res.redirect('/admin-comics'); // Redirige a la vista de administrar cómics
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error interno del servidor');
-    }
-};
-
 // Vista para administrar comics
 exports.adminComicsView = async (req, res) => {
     try {
@@ -95,9 +78,11 @@ const queryComics = (query, values) => {
                 reject(error);
             } else {
                 // Formatea todas las fechas en "dd/mm/yyyy"
-                results.forEach(comic => {
-                    comic.fecha_ingreso = new Date(comic.fecha_ingreso).toLocaleDateString('es-AR');
-                });
+                if (Array.isArray(results)) {
+                    results.forEach(comic => {
+                        comic.fecha_ingreso = new Date(comic.fecha_ingreso).toLocaleDateString('es-AR');
+                    });
+                }
                 resolve(results);
             }
         });
@@ -139,20 +124,21 @@ const getComicById = (comicId) => {
 // Función para actualizar un cómic en la base de datos
 exports.updateComic = async (req, res) => {
     try {
-        console.log('Update Comic Called');
-        const { id, nombre, numero, editorial, coleccion, fecha_ingreso, observaciones, portada, novedad } = req.body;
+        const comicId = req.params.id;
+        const { nombre, numero, portada, editorial, coleccion, fecha_ingreso, novedad, costo, observaciones } = req.body;
 
-        // Formateamos la fecha en formato MySQL
-        const formattedDate = new Date(fecha_ingreso).toISOString().slice(0, 19).replace('T', ' ');
+        // Convierte la fecha a un objeto Date y luego formatea
+        const fechaIngreso = new Date(fecha_ingreso);
+        const fechaIngresoFormateada = fechaIngreso.toISOString().split('T')[0];
 
-        // Consulta SQL para actualizar el cómic
-        const query = 'UPDATE comics SET nombre = ?, numero = ?, editorial = ?, coleccion = ?, fecha_ingreso = ?, observaciones = ?, portada = ?, novedad = ? WHERE id = ?';
-        
-        // Ejecutamos la actualización
-        await updateComic(query, [nombre, numero, editorial, coleccion, formattedDate, observaciones, portada, novedad, id]);
+        // Ajusta la consulta SQL según tus necesidades
+        const query = 'UPDATE comics SET nombre = ?, numero = ?, portada = ?, editorial = ?, coleccion = ?, fecha_ingreso = ?, novedad = ?, costo = ?, observaciones = ? WHERE id = ?';
+        await updateComic(query, [nombre, numero, portada, editorial, coleccion, fechaIngresoFormateada, novedad, costo, observaciones, comicId]);
+
         console.log('Updated Successfully');
 
-        res.redirect('/admin-comics'); // Redirigimos después de la actualización
+        // Redirige o responde según sea necesario
+        res.redirect('/admin-comics'); // O la ruta que desees
     } catch (error) {
         console.error(error);
         res.status(500).send('Error interno del servidor');
