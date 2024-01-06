@@ -48,6 +48,10 @@ const getComics = () => {
             if (error) {
                 reject(error);
             } else {
+                // Formatea todas las fechas en "dd/mm/yyyy"
+                results.forEach(comic => {
+                    comic.fecha_ingreso = new Date(comic.fecha_ingreso).toLocaleDateString('es-AR');
+                });
                 resolve(results);
             }
         });
@@ -70,6 +74,12 @@ exports.searchComics = async (req, res) => {
         console.log('Values:', [`%${valor}%`]);
 
         const results = await queryComics(query, [`%${valor}%`]);
+
+        // Formatea todas las fechas en "dd/mm/yyyy"
+        results.forEach(comic => {
+            comic.fecha_ingreso = new Date(comic.fecha_ingreso).toLocaleDateString('es-AR');
+        });
+
         res.render('adminComics', { comics: results });
     } catch (error) {
         console.error(error);
@@ -84,6 +94,10 @@ const queryComics = (query, values) => {
             if (error) {
                 reject(error);
             } else {
+                // Formatea todas las fechas en "dd/mm/yyyy"
+                results.forEach(comic => {
+                    comic.fecha_ingreso = new Date(comic.fecha_ingreso).toLocaleDateString('es-AR');
+                });
                 resolve(results);
             }
         });
@@ -114,6 +128,8 @@ const getComicById = (comicId) => {
             if (error) {
                 reject(error);
             } else {
+                // Formatea la fecha en "dd/mm/yyyy"
+                results[0].fecha_ingreso = new Date(results[0].fecha_ingreso).toLocaleDateString('es-AR');
                 resolve(results[0]);
             }
         });
