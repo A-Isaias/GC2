@@ -1,0 +1,8 @@
+administrador de usuarios
+colecciones 
+historial suscripciones de colecciones de usuarios
+avisar cuando llegan suscripciones mail o whatsapp
+pagos en linea ?
+login , recordarme, olvide mi contraseña , confirmacion de email?
+valores segun costo + ganancia - descuento 10% por suscripcion
+algunos estilos de vistas
