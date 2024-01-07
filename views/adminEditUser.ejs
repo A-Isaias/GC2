@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Game City Comic Store Edit Profile</title>
+    <title>Game City Comic Store Edit User</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <div class="row justify-content-center mt-5">
             <div class="col-md-6">
                 <!-- <h2 class="text-center mb-4">Edit Profile</h2> -->
-                <form action="/update-profile" method="POST" onsubmit="return validarFormulario()">
+                <form action="/update-user/<%= user.id %>" method="POST" onsubmit="return validarFormulario()">
                     <!-- Campos de edición -->
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
@@ -85,8 +85,9 @@
                             required />
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-                    <a href="/" type="button" class="btn btn-secondary btn-block">Cancel</a>
+                    <button type="submit" class="btn btn-primary btn-block">Guardar Cambios</button>
+                    <a href="/admin-users" type="button" class="btn btn-secondary btn-block">Cancelar</a><button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                    
                 </form>
             </div>
         </div>

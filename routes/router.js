@@ -71,6 +71,10 @@ router.get('/admin-users', isAuthenticated, adminUsersController.adminUsersView)
 router.post('/admin-users', isAuthenticated, adminUsersController.searchUsers);
 // Ruta para eliminar usuarios
 router.post('/delete-user/:id', isAuthenticated, adminUsersController.deleteUser);
+// Ruta para la vista de edición de un usuario (debe estar autenticado)
+router.get('/edit-user/:id', isAuthenticated, adminUsersController.editUserView);
+// Ruta para manejar la actualización de un usuario (debe estar autenticado)
+router.post('/update-user/:id', isAuthenticated, adminUsersController.updateUser);
 
 //Router para metodos del controller
 router.post('/register', authController.register)
