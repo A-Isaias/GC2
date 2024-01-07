@@ -4,27 +4,108 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Panel</title>
-    <!-- Enlaces a Bootstrap CSS y otros recursos aquí -->
+    
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Agrega tus estilos personalizados aquí si es necesario -->
+    <link rel="stylesheet" href="/css/admin.css">
+    <!-- incluimos Chsrt.js para los graficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header class="bg-dark text-white text-center py-4">
-        <h1 class="display-4">Admin Panel</h1>
-    </header>
-    <main class="container mt-4">
+    <div class="container mt-1">
+        <!-- Menú -->
+        <nav class="navbar navbar-expand-lg bg-dark shadow-sm"> 
+            <!-- <a class="navbar-brand btn btn-outline-secondary text-white" href="/">Menú Principal</a> -->
+            <span class="navbar-title text-white">ADMIN PANEL</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary mr-1" href="/admin-comics">Administrar Comics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-success mr-1" href="/admin-users">Administrar Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-info mr-1" href="/config">Configuracion</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary" href="/">🔙 Volver</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>  
+    <div>
+        <canvas id="myChart" style="width: 60vw; height: 30vh;"></canvas>
+    </div>  
+    <main class="container mt-1">
         <section>
-            <h2 class="mb-4">Opciones:</h2>
-            <ul class="list-group">
-                <li class="list-group-item"><a class="btn btn-primary btn-block" href="/admin-comics">Administrar Comics</a></li>
-                <li class="list-group-item"><a class="btn btn-success btn-block" href="/admin-users">Administrar Usuarios</a></li>
-                <li class="list-group-item"><a class="btn btn-info btn-block" href="/config">Configuracion</a></li>
-            </ul>
+            <div class="stats-container">
+                <h2 class="mb-1">Estadísticas:</h2>
+                <ul class="list-group mt-1">
+                  <li class="list-group-item">
+                    <span class="stat-label">Total de Usuarios Registrados:</span>
+                    <span class="stat-value"><%= totalUsers %></span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="stat-label">Último Usuario Registrado:</span>
+                    <span class="stat-value"><%= lastUser.nombre %> <%= lastUser.apellido %></span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="stat-label">Total de Cómics Registrados:</span>
+                    <span class="stat-value"><%= totalComics %></span>
+                  </li>
+                  <li class="list-group-item">
+                    <span class="stat-label">Último Cómic Registrado:</span>
+                    <span class="stat-value"><%= lastComic.nombre %></span>
+                  </li>
+                </ul>
+              </div>
         </section>
     </main>
     <!-- Agrega tus scripts y enlaces a Bootstrap JS aquí si es necesario -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    <!-- Script para renderizar el gráfico -->
+  <script>
+    // Obtén los datos de tu página admin y úsalos para construir el gráfico
+    var totalUsers = <%= totalUsers %>;
+    var totalComics = <%= totalComics %>;
+
+    // Configuración del gráfico
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Total de Usuarios Registrados', 'Total de Cómics Registrados'],
+        datasets: [{
+          label: 'Estadísticas',
+          data: [totalUsers, totalComics],
+          backgroundColor: [
+            'rgba(0, 0, 255, 1)', // Azul
+            'rgba(255, 0, 0, 1)', // Rojo
+          ],
+          borderColor: [
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 99, 132, 1)',
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        },
+        maintainAspectRatio: false // Evita mantener el aspecto original
+      }
+    });
+  </script>
+
 </body>
 </html>

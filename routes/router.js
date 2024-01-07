@@ -7,6 +7,8 @@ const adminComicsController = require('../controllers/adminComicsController');
 const authController = require('../controllers/authController')
 const indexController = require('../controllers/indexController'); 
 const adminUsersController = require('../controllers/adminUsersController');
+const adminController = require('../controllers/adminController');
+
 
 // Importa la configuración de Multer desde app.js
 const {app, upload } = require('../app');
@@ -35,10 +37,19 @@ router.get ('/register', (req, res)=>{
 
 
 // Ruta para la vista de administrador
-router.get('/admin', authController.isAuthenticated, (req, res) => {
-    res.render('admin'); // Ajusta esto según cómo manejas tus vistas
+router.get('/admin', authController.isAuthenticated, async (req, res) => {
+    try {
+      // Obtener la información para las estadísticas
+      const adminInfo = await adminController.getAdminInfo(req, res); // Agrega req, res
+  
+      // Renderizar la vista con la información obtenida
+      res.render('admin', adminInfo);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error interno del servidor');
+    }
   });
-
+  
 //EDITAR PERFIL DE USUARIO
 // Ruta para la vista de edición del perfil (debe estar autenticado)
 router.get('/edit-profile', isAuthenticated, editUserController.editProfileView);

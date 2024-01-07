@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const { promisify } = require('util');
 const connection = require('../database/db');
+const authController = require('../controllers/authController');
 
 // Middleware para verificar autenticación y tipo de usuario
 function ensureAdmin(req, res, next) {
@@ -121,5 +122,60 @@ router.post('/delete-comic/:id', ensureAdmin, (req, res) => {
   });
 });
 
+// Ejecuta una consulta SQL y devuelve los resultados
+function executeQuery(query) {
+  return new Promise((resolve, reject) => {
+    connection.query(query, (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
+
+// Función para obtener la información para la vista de administrador
+async function getAdminInfo(req, res) {
+  try {
+    // Consulta para obtener el total de usuarios registrados
+    const totalUsersQuery = 'SELECT COUNT(*) AS totalUsers FROM users';
+    const totalUsersResult = await executeQuery(totalUsersQuery);
+
+    // Consulta para obtener los datos del último usuario
+    const lastUserQuery = 'SELECT * FROM users ORDER BY id DESC LIMIT 1';
+    const lastUserResult = await executeQuery(lastUserQuery);
+
+    // Consulta para obtener el total de cómics
+    const totalComicsQuery = 'SELECT COUNT(*) AS totalComics FROM comics';
+    const totalComicsResult = await executeQuery(totalComicsQuery);
+
+    // Consulta para obtener los datos del último cómic
+    const lastComicQuery = 'SELECT * FROM comics ORDER BY id DESC LIMIT 1';
+    const lastComicResult = await executeQuery(lastComicQuery);
+
+    // Renderiza la vista con los datos obtenidos
+    const totalUsers = totalUsersResult[0]?.totalUsers || 0;
+    const lastUser = lastUserResult[0] || {};
+    const totalComics = totalComicsResult[0]?.totalComics || 0;
+    const lastComic = lastComicResult[0] || {};
+
+    // Devuelve un objeto con todas las variables necesarias
+    return {
+      totalUsers,
+      lastUser,
+      totalComics,
+      lastComic,
+    };
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al obtener información de administrador');
+  }
+}
+
 // Otras rutas y configuraciones...
-module.exports = router;
+module.exports = {
+  getAdminInfo,
+  ensureAdmin,
+  // Agrega otras funciones si es necesario
+};
