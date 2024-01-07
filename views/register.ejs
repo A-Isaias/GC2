@@ -52,7 +52,13 @@
                             onblur="checkEmailAvailability()"
                         />
                         <span id="emailAvailability"></span>
+                        <% if (typeof alert !== 'undefined' && alert.type === 'error') { %>
+                            <div class="alert alert-danger mt-2" role="alert">
+                              <%= alert.message %>
+                            </div>
+                          <% } %>
                     </div>
+
                     <div class="form-group">
                         <label for="password">Password</label>
                         <div class="input-group">

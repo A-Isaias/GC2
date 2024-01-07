@@ -3,20 +3,40 @@ const bcryptjs = require ('bcryptjs')
 const connection = require ('../database/db')
 const {promisify} = require ('util')
 
-//Metodo Register
-exports.register = async (req,res)=>{
-    try{
-        const { password, nombre, apellido, fechaNacimiento, mail, telefono, direccion, ciudad } = req.body;
-        console.log('Datos recibidos:', req.body);
-        let passHash = await bcryptjs.hash(password, 8)
-        //console.log('Pass Hasheado:',passHash);
-        connection.query('INSERT INTO users (password, nombre, apellido, fecha_nac, mail, telefono, direccion, ciudad) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-                        [passHash, nombre, apellido, fechaNacimiento, mail, telefono, direccion, ciudad])
-                        res.redirect('/');
-    }catch (error) {
-        console.log(error);
+// Método Register
+exports.register = async (req, res) => {
+    try {
+      const { password, nombre, apellido, fechaNacimiento, mail, telefono, direccion, ciudad } = req.body;
+      console.log('Datos recibidos:', req.body);
+  
+      // Verificar si el correo electrónico ya está registrado
+      const existingUser = await promisify(connection.query).bind(connection)('SELECT * FROM users WHERE mail = ?', [mail]);
+  
+      if (existingUser.length > 0) {
+        // El correo electrónico ya está registrado, mostrar mensaje de error en register.ejs
+        return res.render('register', {
+          alert: {
+            type: 'error',
+            message: "Este correo electrónico ya está registrado. Por favor, elija otro."
+          }
+        });
+      }
+  
+      // Continuar con la inserción si el correo electrónico no está registrado
+      let passHash = await bcryptjs.hash(password, 8);
+      connection.query('INSERT INTO users (password, nombre, apellido, fecha_nac, mail, telefono, direccion, ciudad) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [passHash, nombre, apellido, fechaNacimiento, mail, telefono, direccion, ciudad])
+      res.redirect('/');
+    } catch (error) {
+      console.log(error);
+      res.render('register', {
+        alert: {
+          type: 'error',
+          message: "Hubo un error al registrar el usuario."
+        }
+      });
     }
-}
+  }
 
 //metodo login
 exports.login = async (req,res)=> {
