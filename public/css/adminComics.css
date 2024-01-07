@@ -6,10 +6,6 @@ body {
     min-height: 100vh;
 }
 
-.container {
-    width: 80%;
-    margin: auto;
-}
 
 .navbar {
     margin-bottom: 20px;

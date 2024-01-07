@@ -9,25 +9,28 @@
 </head>
 <body>
 
+    <div class="container mt-1">
+        <!-- Menú -->
+        <nav class="navbar navbar-expand-lg bg-dark shadow-sm">
+            <a class="navbar-brand btn btn-outline-secondary text-white" href="/">Menú Principal</a>
+            <span class="navbar-title text-white">Admin Users</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-secondary text-white mr-2" href="/admin-create-user">Create User</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white" href="/admin">🔙 Volver</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
 <div class="container mt-1">
-    <!-- Menú -->
-    <nav class="navbar navbar-expand-lg bg-dark shadow-sm"> 
-        <a class="navbar-brand btn btn-outline-secondary text-white" href="/">Menú Principal</a>
-        <a class="navbar-brand btn btn-outline-secondary text-white" href="/admin">Volver a Admin</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link btn btn-primary text-white mr-2" href="/admin-create-user">Agregar Usuario</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-danger text-white" href="/logout">Cerrar Sesión</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
     <div class="container mt-1">
         <!-- Formulario de búsqueda -->
         <form action="/admin-users" method="post" class="row">
