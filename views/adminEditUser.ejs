@@ -8,8 +8,8 @@
     <title>Game City Comic Store Edit User</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 
@@ -19,7 +19,16 @@
             <div class="col-md-6">
                 <!-- <h2 class="text-center mb-4">Edit Profile</h2> -->
                 <form action="/update-user/<%= user.id %>" method="POST" onsubmit="return validarFormulario()">
-                    <!-- Campos de edición -->
+                     <!-- Campos de edición -->
+  <div class="form-group">
+    <label for="id">ID</label>
+    <input type="text" class="form-control" id="id" name="id" value="<%= user.id %>" readonly />
+  </div>
+
+  <div class="form-group">
+    <label for="mail">Correo Electrónico</label>
+    <input type="email" class="form-control" id="mail" name="mail" value="<%= user.mail %>" readonly />
+  </div>
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="<%= user.nombre %>"
@@ -31,7 +40,13 @@
                         <input type="text" class="form-control" id="apellido" name="apellido"
                             value="<%= user.apellido %>" required />
                     </div>
-
+                    <div class="form-group">
+                        <label for="tipo">Tipo</label>
+                        <select class="form-control" id="tipo" name="tipo">
+                          <option value="user" <%= user.tipo === 'user' ? 'selected' : '' %>>User</option>
+                          <option value="admin" <%= user.tipo === 'admin' ? 'selected' : '' %>>Admin</option>
+                        </select>
+                      </div>
                     <div class="form-group">
                         <label for="fechaNacimiento">Fecha de Nacimiento</label>
                         <input
@@ -86,7 +101,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-block">Guardar Cambios</button>
-                    <a href="/admin-users" type="button" class="btn btn-secondary btn-block">Cancelar</a><button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                    <a href="/admin-users" type="button" class="btn btn-secondary btn-block">Cancelar</a>
                     
                 </form>
             </div>

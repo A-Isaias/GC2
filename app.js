@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+// const path = require('path');
 const cookieParser = require('cookie-parser');
 // const mysql = require('mysql');
 const multer = require('multer');
@@ -28,6 +29,7 @@ app.set('view engine', 'ejs');
 
 //Carpeta public
 app.use(express.static('public'));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // Seteamos urlencoded para capturar los datos del formulario
 app.use(express.urlencoded({extended:true}));

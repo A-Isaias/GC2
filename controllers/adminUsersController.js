@@ -68,34 +68,35 @@ const queryUsers = (query, values) => {
 // Vista para editar un usuario desde el panel de administración
 exports.editUserView = async (req, res) => {
     try {
-        const userId = req.params.id;
-        const user = await getUserById(userId);
-
-        if (user) {
-            res.render('adminEditUser', { user });
-        } else {
-            res.status(404).send('Usuario no encontrado');
-        }
+      const userId = req.params.id;
+      const user = await getUserById(userId);
+  
+      if (user) {
+        res.render('adminEditUser', { user });
+      } else {
+        res.status(404).send('Usuario no encontrado');
+      }
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error interno del servidor');
+      console.error(error);
+      res.status(500).send('Error interno del servidor');
     }
-};
-
-// Método para actualizar un perfil o usuario
+  };
+  
+  // Método para actualizar un perfil o usuario
 exports.updateUser = async (req, res) => {
     try {
-        const { nombre, apellido, fechaNacimiento, telefono, direccion, ciudad, password } = req.body;
+        const { nombre, apellido, fechaNacimiento, telefono, direccion, ciudad, password, tipo } = req.body;
         const userId = req.params.id;
 
         // Lógica para actualizar los datos del perfil o usuario en la base de datos
         await connection.query(
-            'UPDATE users SET nombre=?, apellido=?, fecha_nac=?, telefono=?, direccion=?, ciudad=? WHERE id=?',
-            [nombre, apellido, fechaNacimiento, telefono, direccion, ciudad, userId]
+            'UPDATE users SET nombre=?, apellido=?, fecha_nac=?, telefono=?, direccion=?, ciudad=?, tipo=? WHERE id=?',
+            [nombre, apellido, fechaNacimiento, telefono, direccion, ciudad, tipo, userId]
         );
 
         // Lógica para actualizar la contraseña si se proporciona
         if (password) {
+            // Lógica para actualizar la contraseña en la base de datos
             const passHash = await bcryptjs.hash(password, 8);
             await connection.query(
                 'UPDATE users SET password=? WHERE id=?',
@@ -103,7 +104,6 @@ exports.updateUser = async (req, res) => {
             );
         }
 
-        // Redirige a la página de administración de usuarios después de la actualización
         res.redirect('/admin-users');
     } catch (error) {
         console.log(error);
@@ -124,34 +124,7 @@ const getUserById = (userId) => {
     });
 };
 
-// Método para actualizar un perfil o usuario
-exports.updateUser = async (req, res) => {
-    try {
-        const { nombre, apellido, fechaNacimiento, telefono, direccion, ciudad, password } = req.body;
-        const userId = req.params.id; // Obtén el ID del usuario de los parámetros de la URL
 
-        // Lógica para actualizar los datos del perfil o usuario en la base de datos
-        await connection.query(
-            'UPDATE users SET nombre=?, apellido=?, fecha_nac=?, telefono=?, direccion=?, ciudad=? WHERE id=?',
-            [nombre, apellido, fechaNacimiento, telefono, direccion, ciudad, userId]
-        );
-
-        // Lógica para actualizar la contraseña si se proporciona
-        if (password) {
-            // Lógica para actualizar la contraseña en la base de datos
-            const passHash = await bcryptjs.hash(password, 8);
-            await connection.query(
-                'UPDATE users SET password=? WHERE id=?',
-                [passHash, userId]
-            );
-        }
-
-        res.redirect('/admin-users'); // Puedes redirigir a la página de administración de usuarios
-    } catch (error) {
-        console.log(error);
-        res.status(500).send('Error interno del servidor');
-    }
-};
 // Método para eliminar un usuario
 exports.deleteUser = async (req, res) => {
     try {
