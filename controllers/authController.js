@@ -26,7 +26,15 @@ exports.register = async (req, res) => {
       let passHash = await bcryptjs.hash(password, 8);
       connection.query('INSERT INTO users (password, nombre, apellido, fecha_nac, mail, telefono, direccion, ciudad) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
         [passHash, nombre, apellido, fechaNacimiento, mail, telefono, direccion, ciudad])
-      res.redirect('/');
+      // Verifica el referer de la solicitud
+      const referer = req.header('Referer');
+      if (referer && referer.includes('/admin-create-user')) {
+          // Si viene de adminCreateUser.ejs, redirige a la página de administración de usuarios
+          res.redirect('/admin-users');
+      } else {
+          // De lo contrario, redirige a la página principal
+          res.redirect('/');
+      }
     } catch (error) {
       console.log(error);
       res.render('register', {

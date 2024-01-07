@@ -69,6 +69,12 @@ router.post('/add-comic', upload.single('portada'), adminComicsController.addCom
 router.get('/admin-users', isAuthenticated, adminUsersController.adminUsersView);
 // Ruta para manejar la búsqueda de usuarios (método POST)
 router.post('/admin-users', isAuthenticated, adminUsersController.searchUsers);
+// Ruta para la vista de creación de usuario en el panel de administración
+router.get('/admin-create-user', isAuthenticated, (req, res) => {
+    res.render('adminCreateUser');
+  });
+// Ruta para manejar la creación de usuario desde el panel de administración
+router.post('/create-user', isAuthenticated, authController.register);
 // Ruta para eliminar usuarios
 router.post('/delete-user/:id', isAuthenticated, adminUsersController.deleteUser);
 // Ruta para la vista de edición de un usuario (debe estar autenticado)
