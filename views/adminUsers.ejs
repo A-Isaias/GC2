@@ -87,6 +87,8 @@
                     <td>
                         <a href="/edit-user/<%= user.id %>" class="btn btn-warning">Editar</a>
                         <form action="/delete-user/<%= user.id %>" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+                            <!-- Agrega un campo oculto para enviar el método DELETE -->
+                            <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
                     </td>

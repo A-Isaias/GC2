@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 // const mysql = require('mysql');
 const multer = require('multer');
 const app = express();
+const methodOverride = require('method-override');
+
 
 // Configuración de Multer
 const storage = multer.diskStorage({
@@ -39,6 +41,8 @@ app.use(cookieParser());
 
 //Definir Rutas
 app.use('/',require ('./routes/router.js'))
+
+app.use(methodOverride('_method'));
 
 //Eliminar cache luego de que hacemos Logout
 app.use(function(req,res,next){

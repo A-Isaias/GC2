@@ -125,17 +125,16 @@ exports.updateUser = async (req, res) => {
 };
 // Método para eliminar un usuario
 exports.deleteUser = async (req, res) => {
-  try {
-    const userId = req.params.id;
+    try {
+        const userId = req.params.id;
 
-    // Lógica para eliminar un usuario de la base de datos
-    await connection.query("DELETE FROM users WHERE id = ?", [userId]);
+        // Lógica para eliminar un usuario de la base de datos
+        await connection.query("DELETE FROM users WHERE id = ?", [userId]);
 
-    // Mensaje de éxito
-    req.flash("success", "Usuario eliminado exitosamente.");
-    res.redirect("/admin-users"); // Puedes redirigir a la página de administración de usuarios
-  } catch (error) {
-    // Manejo de errores global
-    next(error);
-  }
+        // Redirige a la página de administración de usuarios
+        res.redirect("/admin-users");
+    } catch (error) {
+        // Manejo de errores global
+        res.status(500).send('Error interno del servidor');
+    }
 };

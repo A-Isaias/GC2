@@ -1,5 +1,6 @@
 const express = require ('express')
 const router = express.Router()
+const methodOverride = require('method-override');
 const isAuthenticated = require('../controllers/authController').isAuthenticated;
 const editUserController = require('../controllers/editUserController');
 const adminComicsController = require('../controllers/adminComicsController');
@@ -9,6 +10,9 @@ const adminUsersController = require('../controllers/adminUsersController');
 
 // Importa la configuración de Multer desde app.js
 const {app, upload } = require('../app');
+
+// Configura el middleware para interpretar el método DELETE
+router.use(methodOverride('_method'));
 
 //router para las vistas 
 // Ruta para la página principal
@@ -65,6 +69,8 @@ router.post('/add-comic', upload.single('portada'), adminComicsController.addCom
 router.get('/admin-users', isAuthenticated, adminUsersController.adminUsersView);
 // Ruta para manejar la búsqueda de usuarios (método POST)
 router.post('/admin-users', isAuthenticated, adminUsersController.searchUsers);
+// Ruta para eliminar usuarios
+router.post('/delete-user/:id', isAuthenticated, adminUsersController.deleteUser);
 
 //Router para metodos del controller
 router.post('/register', authController.register)
