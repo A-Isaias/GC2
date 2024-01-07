@@ -1,0 +1,62 @@
+body {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+    margin: 0; 
+}
+
+.navbar {
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-title {
+    color: white;
+    font-size: 1.5rem;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.ml-auto {
+    margin-left: auto;
+    margin-right: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.reveal-password {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  color: #fff;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 1rem;
+  text-decoration: none;
+  margin-top: 8px;
+  transition: background-color 0.3s;
+}
+
+.reveal-password:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  text-decoration: none;
+}
+
+/* Añade estilos adicionales para la página de edición de perfil */
+.edit-profile-container {
+  margin-top: 0px; /* Ajusta el espacio superior específicamente para esta página */
+}
+
+.edit-profile-form {
+  margin-top: 0px; /* Ajusta el espacio superior del formulario */
+}
