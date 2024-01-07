@@ -5,6 +5,7 @@ const editUserController = require('../controllers/editUserController');
 const adminComicsController = require('../controllers/adminComicsController');
 const authController = require('../controllers/authController')
 const indexController = require('../controllers/indexController'); 
+const adminUsersController = require('../controllers/adminUsersController');
 
 // Importa la configuración de Multer desde app.js
 const {app, upload } = require('../app');
@@ -27,16 +28,21 @@ router.get ('/login', (req, res)=>{
 router.get ('/register', (req, res)=>{
     res.render('register')
 })
+
+
+// Ruta para la vista de administrador
+router.get('/admin', authController.isAuthenticated, (req, res) => {
+    res.render('admin'); // Ajusta esto según cómo manejas tus vistas
+  });
+
+//EDITAR PERFIL DE USUARIO
 // Ruta para la vista de edición del perfil (debe estar autenticado)
 router.get('/edit-profile', isAuthenticated, editUserController.editProfileView);
 
 // Ruta para manejar la actualización del perfil (debe estar autenticado)
 router.post('/update-profile', isAuthenticated, editUserController.updateProfile);
 
-// Ruta para la vista de administrador
-router.get('/admin', authController.isAuthenticated, (req, res) => {
-    res.render('admin'); // Ajusta esto según cómo manejas tus vistas
-  });
+//ADMINISTRACION DE COMICS
 // Ruta para acceder a la administración de cómics
 router.get('/admin-comics', isAuthenticated, adminComicsController.adminComicsView);
 // Definir ruta para búsqueda de cómics (método POST)
@@ -54,6 +60,11 @@ router.get('/add-comic', adminComicsController.renderAddComic);
 // Ruta para agregar cómic a la base de datos
 router.post('/add-comic', upload.single('portada'), adminComicsController.addComic);
 
+//ADMINISTRACION DE USUARIOS 
+// Ruta para acceder a la administración de usuarios
+router.get('/admin-users', isAuthenticated, adminUsersController.adminUsersView);
+// Ruta para manejar la búsqueda de usuarios (método POST)
+router.post('/admin-users', isAuthenticated, adminUsersController.searchUsers);
 
 //Router para metodos del controller
 router.post('/register', authController.register)

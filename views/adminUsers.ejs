@@ -1,0 +1,105 @@
+<!-- adminUsers.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Usuarios</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-1">
+    <!-- Menú -->
+    <nav class="navbar navbar-expand-lg bg-dark shadow-sm">
+        <a class="navbar-brand btn btn-outline-secondary text-white" href="/">Menú Principal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-primary text-white" href="/add-user">Agregar Usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-danger text-white" href="/logout">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-1">
+        <!-- Formulario de búsqueda -->
+        <form action="/admin-users" method="post" class="row">
+            <div class="form-group col-md-3">
+                <label for="criterio"><strong>Buscar por:</strong></label>
+                <select class="form-control" id="criterio" name="criterio">
+                    <option value="nombre" selected>Nombre</option>
+                    <option value="apellido">Apellido</option>
+                    <option value="mail">Correo Electrónico</option>
+                    <option value="tipo">Tipo</option>
+                    <option value="fecha_nac">Fecha de Nacimiento</option>
+                    <option value="telefono">Teléfono</option>
+                    <option value="direccion">Dirección</option>
+                    <option value="ciudad">Ciudad</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="keyword"><strong>Palabra clave:</strong></label>
+                <input type="text" class="form-control" id="keyword" name="valor" required>
+            </div>
+            <div class="form-group col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                <a href="/admin-users" class="btn btn-secondary">Mostrar Todos</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla de usuarios -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo Electrónico</th>
+            <th>Tipo</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Ciudad</th>
+            <!-- Agrega más columnas según tus necesidades -->
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (users && users.length > 0) { %>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.nombre %></td>
+                    <td><%= user.apellido %></td>
+                    <td><%= user.mail %></td>
+                    <td><%= user.tipo %></td>
+                    <td><%= user.fecha_nac %></td>
+                    <td><%= user.telefono %></td>
+                    <td><%= user.direccion %></td>
+                    <td><%= user.ciudad %></td>
+                    <td>
+                        <a href="/edit-user/<%= user.id %>" class="btn btn-warning">Editar</a>
+                        <form action="/delete-user/<%= user.id %>" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        <% } else { %>
+            <tr>
+                <td colspan="10">No hay usuarios disponibles.</td>
+            </tr>
+        <% } %>
+    </tbody>
+</table>
+</div>
+
+</body>
+</html>

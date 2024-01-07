@@ -12,23 +12,7 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-<!-- 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style> -->
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-ezr+9tiUqVpDAVC4B2OpD3CAok4r0SzdFqKb7uKSgm6U+3YQvZOV1+iqEPnlZA8/n" crossorigin="anonymous">
     
     <!-- Custom styles for this template -->
     <link href="css/signin.css" rel="stylesheet">
@@ -60,28 +44,29 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="password" name="password" required>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary reveal-password" type="button">
-                                    <i class="fas fa-eye-slash" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <div class="input-group">
-                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary reveal-password" type="button">
-                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                      <label for="password">Password</label>
+                      <div class="input-group">
+                          <input type="password" class="form-control" id="password" name="password" required>
+                          <div class="input-group-append">
+                              <button class="reveal-password" type="button" onclick="revealPassword('password')">
+                                  <i class="fas fa-eye-slash" aria-hidden="true"></i> Mostrar Contraseña
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div class="form-group">
+                      <label for="confirmPassword">Confirm Password</label>
+                      <div class="input-group">
+                          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                          <div class="input-group-append">
+                              <button class="reveal-password" type="button" onclick="revealPassword('confirmPassword')">
+                                  <i class="fas fa-eye-slash" aria-hidden="true"></i> Mostrar Contraseña
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+                  
                     <div class="form-group">
                         <label for="nombre">Nombre</label>
                         <input
@@ -151,31 +136,13 @@
         </div>
     </div>
     
-<!-- <main class="form-signin text-center shadow-lg p-3 mb-5">
-  <form id="formLogin" action="/login" method="POST">
-   
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-
-    <div class="form-floating">
-      <input type="email" class="form-control" id="email" placeholder="name@example.com">
-      <label for="floatingInput">Email</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
-      <label for="Pass">Password</label>
-    </div>
-
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-  </form>
-  <a type="button" class="w-100 btn btn-lg btn-primary">Registrarse</a>
-</main> -->
-
-
+    <script>
+      function revealPassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+      }
+    </script>
     
   </body>
 </html>
