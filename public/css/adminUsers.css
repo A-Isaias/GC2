@@ -1,0 +1,53 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+.navbar-title {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    margin: 0;
+    font-size: 1.5rem; /* Ajusta el tamaño del texto según sea necesario */
+    text-align: center; /* Alinea el texto al centro */
+}
+
+label {
+    font-weight: bold;
+}
+
+.reveal-password {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    color: #fff;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 1rem;
+    text-decoration: none;
+    margin-top: 8px; /* Ajuste del espacio superior */
+    transition: background-color 0.3s; /* Transición suave del color de fondo */
+  }
+
+  .reveal-password:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    text-decoration: none;
+  }
