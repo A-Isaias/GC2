@@ -194,10 +194,32 @@ exports.addComic = async (req, res) => {
     try {
         const { nombre, numero, editorial, coleccion, fecha_ingreso, novedad, costo, observaciones } = req.body;
         const portada = req.file.filename; // Cambia esto según tu configuración de multer
-        
+
+        // Verifica si la colección ya existe en la tabla colecciones
+        const queryCheckCollection = 'SELECT * FROM colecciones WHERE nombre = ?';
+        const valuesCheckCollection = [coleccion];
+        const resultCheckCollection = await queryComics(queryCheckCollection, valuesCheckCollection);
+
+        let coleccionId;
+
+        if (resultCheckCollection.length === 0) {
+            // Si la colección no existe, la inserta en la tabla colecciones
+            const queryInsertCollection = 'INSERT INTO colecciones (nombre) VALUES (?)';
+            const resultInsertCollection = await queryComics(queryInsertCollection, [coleccion]);
+
+            // Obtiene el ID de la colección recién insertada
+            coleccionId = resultInsertCollection.insertId;
+        } else {
+            // Si la colección ya existe, obtiene su ID
+            coleccionId = resultCheckCollection[0].id;
+        }
+
         // Ajusta la consulta SQL según tu esquema de base de datos
-        const query = 'INSERT INTO comics (nombre, numero, editorial, coleccion, fecha_ingreso, portada, novedad, costo, observaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        await queryComics(query, [nombre, numero, editorial, coleccion, fecha_ingreso, portada, novedad, costo, observaciones]);
+        const queryInsertComic = 'INSERT INTO comics (nombre, numero, editorial, coleccion, fecha_ingreso, portada, novedad, costo, observaciones, coleccion_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const valuesInsertComic = [nombre, numero, editorial, coleccion, fecha_ingreso, portada, novedad, costo, observaciones, coleccionId];
+
+        // Inserta el cómic en la tabla comics
+        await queryComics(queryInsertComic, valuesInsertComic);
 
         res.redirect('/admin-comics'); // Redirige a la vista de administrar cómics
     } catch (error) {

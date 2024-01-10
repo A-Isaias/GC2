@@ -1,0 +1,51 @@
+<!-- suscripciones.ejs -->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Game City Comic Store Edit Profile</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/suscripciones.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+
+<body>
+    <div class="col-md-8 edit-profile-container">
+        <!-- Menú -->
+        <nav class="navbar navbar-expand-lg bg-dark shadow-sm" style="margin-top: 0;">
+            <span class="navbar-title text-white">Editar Perfil</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link btn btn-primary text-white mr-2" href="/">🔙 Volver</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container mt-1">
+        <h1>Mis Colecciones</h1>
+        <ul class="list-group">
+          <% userCollections.forEach(collection => { %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <%= collection.collection %>
+              <form action="/eliminar-suscripcion/<%= collection.id %>" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta suscripción?');">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    
+    </body>
+    
+    </html>

@@ -51,7 +51,7 @@
           </h2>
         </div>
         <div class="text-right">
-          <a type="button" class="px-3 btn btn-primary mb-2" href="/">Mis colecciones</a>
+          <a type="button" class="px-3 btn btn-primary mb-2" href="/mis-colecciones">Mis colecciones</a>
           <a type="button" class="px-3 btn btn-secondary mb-2" href="/edit-profile">Editar mi perfil</a>
           <a type="button" class="px-3 btn btn-danger mb-2" href="logout"> 🏃‍♂️ Logout</a>
           <% if (user && user.tipo==='admin' ) { %>
@@ -108,7 +108,7 @@
                       <!-- Aquí irían las observaciones -->
                     </div>
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Agregar a colección</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="agregarAColeccion(<%= comic.id %>, '<%= comic.coleccion %>')">Agregar a colección</button>
                       <a href="/ver-comic/<%= comic.id %>" class="btn btn-sm btn-outline-secondary">Ver</a>
                     </div>
                   </div>
@@ -148,6 +148,32 @@
       }
     });
   </script>
+  <script>
+    function agregarAColeccion(comicId, coleccion) {
+      // Envía una solicitud al backend (usando Fetch, AJAX, o cualquier método que prefieras)
+      fetch('/suscribir-coleccion', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ comicId, coleccion }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);  // Agrega esta línea para ver la respuesta del servidor en la consola del navegador
+        if (data.success) {
+          alert('Suscripción exitosa');
+        } else {
+          alert('Error al suscribirse');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error al suscribirse');
+      });
+    }
+  </script>
+
 
 </body>
 

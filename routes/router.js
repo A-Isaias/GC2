@@ -8,6 +8,7 @@ const authController = require('../controllers/authController')
 const indexController = require('../controllers/indexController'); 
 const adminUsersController = require('../controllers/adminUsersController');
 const adminController = require('../controllers/adminController');
+const suscriptionController = require('../controllers/suscriptionController');
 
 
 // Importa la configuración de Multer desde app.js
@@ -92,6 +93,15 @@ router.post('/delete-user/:id', isAuthenticated, adminUsersController.deleteUser
 router.get('/edit-user/:id', isAuthenticated, adminUsersController.editUserView);
 // Ruta para manejar la actualización de un usuario (debe estar autenticado)
 router.post('/update-user/:id', isAuthenticated, adminUsersController.updateUser);
+
+
+// Suscripciones
+// Suscribirse a una coleccion
+router.post('/suscribir-coleccion', isAuthenticated, suscriptionController.suscribirColeccion);
+// Ver mis colecciones
+router.get('/mis-colecciones', isAuthenticated, suscriptionController.misColeccionesView);
+// Eliminar suscripciones
+router.post('/eliminar-suscripcion/:id', isAuthenticated, suscriptionController.eliminarSuscripcion);
 
 //Router para metodos del controller
 router.post('/register', authController.register)
