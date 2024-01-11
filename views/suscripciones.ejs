@@ -33,19 +33,21 @@
         </nav>
     </div>
     <div class="container mt-1">
-        <h1>Mis Colecciones</h1>
-        <ul class="list-group">
-          <% userCollections.forEach(collection => { %>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <%= collection.collection %>
-              <form action="/eliminar-suscripcion/<%= collection.id %>" method="post" onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta suscripción?');">
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-              </form>
-            </li>
-          <% }); %>
-        </ul>
+      <div class="col-md-9 mx-auto text-center colecciones">
+          <h1>Mis Colecciones</h1>
+          <ul class="list-group">
+              <% userCollections.forEach(collection => { %>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <%= collection.collection %>
+                  <form action="/eliminar-suscripcion/<%= collection.id %>" method="post"
+                      onsubmit="return confirm('¿Estás seguro de que quieres eliminar esta suscripción?');">
+                      <button type="submit" class="btn btn-danger">Eliminar</button>
+                  </form>
+              </li>
+              <% }); %>
+          </ul>
       </div>
-    
+  </div>
     </body>
     
     </html>
