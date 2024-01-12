@@ -1,4 +1,4 @@
-colecciones - edicion cuando cambias de coleccion que se actualice en base de datos
+#colecciones - edicion cuando cambias de coleccion que se actualice en base de datos (no lo pude resolver del todo lo deje readonly)
 historial suscripciones de colecciones de usuarios
 avisar cuando llegan suscripciones mail o whatsapp
 pagos en linea ?
