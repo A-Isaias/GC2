@@ -1,7 +1,6 @@
 colecciones - edicion cuando cambias de coleccion que se actualice en base de datos
 historial suscripciones de colecciones de usuarios
 avisar cuando llegan suscripciones mail o whatsapp
-arreglar edicion de portadas de comics -la imagen
 pagos en linea ?
 login , recordarme, olvide mi contraseña , confirmacion de email?
 algunos estilos de vistas
