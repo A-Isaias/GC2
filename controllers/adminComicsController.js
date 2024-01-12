@@ -132,8 +132,19 @@ exports.updateComic = async (req, res) => {
         const fechaIngresoFormateada = fechaIngreso.toISOString().split('T')[0];
 
         // Ajusta la consulta SQL según tus necesidades
-        const query = 'UPDATE comics SET nombre = ?, numero = ?, portada = ?, editorial = ?, coleccion = ?, fecha_ingreso = ?, novedad = ?, costo = ?, observaciones = ? WHERE id = ?';
-        await updateComic(query, [nombre, numero, portada, editorial, coleccion, fechaIngresoFormateada, novedad, costo, observaciones, comicId]);
+        let query, values;
+
+        if (req.file) {
+            // Si se proporciona un nuevo archivo, actualiza la portada
+            query = 'UPDATE comics SET nombre = ?, numero = ?, portada = ?, editorial = ?, coleccion = ?, fecha_ingreso = ?, novedad = ?, costo = ?, observaciones = ? WHERE id = ?';
+            values = [nombre, numero, req.file.filename, editorial, coleccion, fechaIngresoFormateada, novedad, costo, observaciones, comicId];
+        } else {
+            // Si no se proporciona un nuevo archivo, conserva la portada existente
+            query = 'UPDATE comics SET nombre = ?, numero = ?, editorial = ?, coleccion = ?, fecha_ingreso = ?, novedad = ?, costo = ?, observaciones = ? WHERE id = ?';
+            values = [nombre, numero, editorial, coleccion, fechaIngresoFormateada, novedad, costo, observaciones, comicId];
+        }
+
+        await updateComic(query, values);
 
         console.log('Updated Successfully');
 
@@ -227,10 +238,4 @@ exports.addComic = async (req, res) => {
         res.status(500).send('Error interno del servidor');
     }
 };
-// // Exporta las funciones necesarias
-// module.exports = {
-//     // ... (Otras exportaciones)
-//     renderAddComic,
-//     addComic,
-// };
 

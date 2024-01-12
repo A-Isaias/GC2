@@ -30,7 +30,7 @@
             </div>
         </nav>
     <!-- Formulario de edición -->
-    <form action="/update-comic/<%= comic.id %>" method="post">
+    <form action="/update-comic/<%= comic.id %>" method="post" enctype="multipart/form-data">
         <!-- Campos de edición -->
         <div class="form-group">
             <label for="nombre">Nombre:</label>
