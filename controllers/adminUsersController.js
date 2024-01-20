@@ -65,6 +65,7 @@ const queryUsers = (query, values) => {
         });
     });
 };
+
 // Vista para editar un usuario desde el panel de administración
 exports.editUserView = async (req, res) => {
     try {
@@ -125,18 +126,20 @@ const getUserById = (userId) => {
 };
 
 
-// Método para eliminar un usuario
+// Función para eliminar un usuario y sus colecciones relacionadas
 exports.deleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
 
-        // Lógica para eliminar un usuario de la base de datos
-        await connection.query("DELETE FROM users WHERE id = ?", [userId]);
+        // Elimina registros en user_collections relacionados con el usuario
+        await queryUsers('DELETE FROM user_collections WHERE user_id = ?', [userId]);
 
-        // Redirige a la página de administración de usuarios
-        res.redirect("/admin-users");
+        // Ahora puedes eliminar al usuario
+        await queryUsers('DELETE FROM users WHERE id = ?', [userId]);
+
+        res.redirect('/admin-users');
     } catch (error) {
-        // Manejo de errores global
-        res.status(500).send('Error interno del servidor');
+        console.error('Error al eliminar el usuario:', error);
+        res.redirect('/admin-users');
     }
 };

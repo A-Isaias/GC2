@@ -1,5 +1,6 @@
 const connection = require('../database/db');
 const multer = require('multer');
+const notificationController = require('./notificationController'); // Ajusta la ruta según tu estructura de archivos
 
 // Configuración de Multer
 const storage = multer.diskStorage({
@@ -229,13 +230,19 @@ exports.addComic = async (req, res) => {
         const queryInsertComic = 'INSERT INTO comics (nombre, numero, editorial, coleccion, fecha_ingreso, portada, novedad, costo, observaciones, coleccion_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         const valuesInsertComic = [nombre, numero, editorial, coleccion, fecha_ingreso, portada, novedad, costo, observaciones, coleccionId];
 
-        // Inserta el cómic en la tabla comics
-        await queryComics(queryInsertComic, valuesInsertComic);
+         // Inserta el cómic en la tabla comics
+    await queryComics(queryInsertComic, valuesInsertComic);
 
-        res.redirect('/admin-comics'); // Redirige a la vista de administrar cómics
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error interno del servidor');
-    }
+    // Obtén el cómic recién insertado
+    const queryGetComic = 'SELECT * FROM comics WHERE id = LAST_INSERT_ID()';
+    const newComic = await queryComics(queryGetComic);
+
+    // Notifica a los suscriptores de la nueva colección
+    await notificationController.notifySubscribers(newComic[0]);
+
+    res.redirect('/admin-comics'); // Redirige a la vista de administrar cómics
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
 };
-
