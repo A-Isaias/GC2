@@ -59,16 +59,17 @@ exports.notifySubscribers = async (comic) => {
           <img src="cid:portada" alt="Portada del cómic" style="max-width: 200px; margin-right: 20px;">
   
           <!-- Datos del cómic a la derecha -->
-          <div>
+          <div style="font-size: 16px;">
             <h1>Nuevo cómic en la colección ${comic.coleccion}</h1>
             <p>¡Hola!</p>
             <p>Se ha agregado un nuevo cómic (${comic.nombre}) a la colección ${comic.coleccion}. ¡No te lo pierdas!</p>
-            <p>Detalles del cómic:</p>
-            <ul>
-              <li>Nombre: ${comic.nombre}</li>
-              <li>Número: ${comic.numero}</li>
-              <li>Colección: ${comic.coleccion}</li>
-              <li>Costo: ${comic.costo}</li>
+            <p style="font-size: 18px; margin-bottom: 8px;"><strong>Detalles del cómic:</strong></p>
+            <ul style="list-style: none; padding: 0;">
+              <li><strong>Nombre:</strong> ${comic.nombre}</li>
+              <li><strong>Número:</strong> ${comic.numero}</li>
+              <li><strong>Colección:</strong> ${comic.coleccion}</li>
+              <!-- Estilo personalizado para el título y el valor "10% OFF: $ 1200" -->
+              <li style="margin-top: 8px; color: red; font-size: 18px;"><strong>10% OFF: $ ${comic.costo}</strong></li>
             </ul>
           </div>
         </div>
