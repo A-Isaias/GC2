@@ -97,7 +97,11 @@
                   <p class="card-text">
                     <strong>Número:</strong> <%= comic.numero %><br>
                     <strong>Colección:</strong> <%= comic.coleccion %><br>
-                    <strong style="font-size: 22px; color: red;">10% OFF: $</strong> <span style="font-size: 22px; color: red; font-weight: bold;"><%= comic.costo %></span>
+                    <strong>Costo:</strong> $<%= comic.costo %><br>
+                    <strong style="font-size: 22px; color: red;">10% OFF: $</strong>
+                    <span style="font-size: 22px; color: red; font-weight: bold;">
+                      <%= Math.floor(comic.costo * 0.9) %>
+                    </span>
                   </p>
                   <hr> <!-- Línea divisoria para separar información -->
                   <p class="card-text">

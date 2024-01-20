@@ -51,29 +51,39 @@ exports.notifySubscribers = async (comic) => {
     try {
       // Obtén las suscripciones para la colección del cómic
       const subscribers = await getSubscribers(comic.coleccion);
-  
-      // Configura el contenido HTML del correo electrónico con formato personalizado
-      const htmlContent = `
-        <div style="display: flex; align-items: center;">
-          <!-- Portada del cómic a la izquierda -->
-          <img src="cid:portada" alt="Portada del cómic" style="max-width: 200px; margin-right: 20px;">
-  
-          <!-- Datos del cómic a la derecha -->
-          <div style="font-size: 16px;">
-            <h1>Nuevo cómic en la colección ${comic.coleccion}</h1>
-            <p>¡Hola!</p>
-            <p>Se ha agregado un nuevo cómic (${comic.nombre}) a la colección ${comic.coleccion}. ¡No te lo pierdas!</p>
-            <p style="font-size: 18px; margin-bottom: 8px;"><strong>Detalles del cómic:</strong></p>
-            <ul style="list-style: none; padding: 0;">
-              <li><strong>Nombre:</strong> ${comic.nombre}</li>
-              <li><strong>Número:</strong> ${comic.numero}</li>
-              <li><strong>Colección:</strong> ${comic.coleccion}</li>
-              <!-- Estilo personalizado para el título y el valor "10% OFF: $ 1200" -->
-              <li style="margin-top: 8px; color: red; font-size: 18px;"><strong>10% OFF: $ ${comic.costo}</strong></li>
-            </ul>
-          </div>
-        </div>
-      `;
+
+  // Calcula el 10% OFF sin decimales
+const discountPrice = Math.floor(comic.costo * 0.9);
+
+// // Convierte la fecha de ingreso a un formato legible (puedes ajustar el formato según tus preferencias)
+// const formattedDate = new Date(comic.fecha_ingreso).toLocaleDateString('es-AR');
+
+// Configura el contenido HTML del correo electrónico con formato personalizado
+const htmlContent = `
+  <div style="display: flex; align-items: center;">
+    <!-- Portada del cómic a la izquierda -->
+    <img src="cid:portada" alt="Portada del cómic" style="max-width: 200px; max-height: 100%; margin-right: 20px;">
+
+
+    <!-- Datos del cómic a la derecha -->
+    <div style="font-size: 16px;">
+      <h1>Nuevo cómic en la colección ${comic.coleccion}</h1>
+      <p>¡Hola!</p>
+      <p>Se ha agregado un nuevo cómic (${comic.nombre}) a la colección ${comic.coleccion}. ¡No te lo pierdas!</p>
+      <p style="font-size: 18px; margin-bottom: 8px;"><strong>Detalles del cómic:</strong></p>
+      <ul style="list-style: none; padding: 0;">
+        <li><strong>Nombre:</strong> ${comic.nombre}</li>
+        <li><strong>Número:</strong> ${comic.numero}</li>
+        <li><strong>Colección:</strong> ${comic.coleccion}</li>
+        <li><strong>Costo original:</strong> $ ${comic.costo}</li>
+        <li style="color: red; font-size: 18px;">
+          <strong>10% OFF PREVENTA: $ ${discountPrice}</strong>
+        </li>
+        <li><strong>Fecha de ingreso:</strong> ${comic.fecha_ingreso}</li>
+      </ul>
+    </div>
+  </div>
+`;
   
       // Obtén el nombre de la portada del cómic
       const portadaFileName = obtenerNombreDePortada(comic.portada);
