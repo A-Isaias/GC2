@@ -1,6 +1,6 @@
 #colecciones - edicion cuando cambias de coleccion que se actualice en base de datos (no lo pude resolver del todo lo deje readonly)
 historial suscripciones de colecciones de usuarios
-avisar cuando llegan suscripciones mail o whatsapp
+avisar cuando llegan suscripciones al whatsapp
 pagos en linea ?
 login , recordarme, olvide mi contraseña , confirmacion de email?
 algunos estilos de vistas
